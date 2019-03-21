@@ -23,16 +23,30 @@ class App extends Component {
         "todo", 
         "doing", 
         "done"
-      ]
+      ],
+      newTask: ''
      }
   }
 
-  handleTaskSubmit(task){
-
+  handleTaskSubmit(){
+    console.log("CLICK ", this.state)
+    const taskName = this.state.newTask;
+    console.log("taskName: ", taskName)
+    const id = this.state.tasks.length + 1 ;
+    const task = {
+      _id: id,
+      name: taskName, 
+      status: "todo"
+    };
+    console.log(task)
+    const newTasks = this.state.tasks;
+    newTasks.push(task);
+    this.setState({tasks: newTasks})
   }
 
   handleTaskInputChange(e){
-
+    console.log("handling: ",e.target.name)
+    this.setState({[e.target.name]: e.target.value})
   }
 
   update = (id, originalIndex, status) => {
@@ -47,7 +61,7 @@ class App extends Component {
       $splice: [[index, 1], [originalIndex, 0, task]]
     })
 
-    this.setState({tasks: newTasks})
+    this.setState({tasks: newTasks, newTask: ""})
   }
 
   findCard = (id) => {
@@ -68,8 +82,10 @@ class App extends Component {
         <div className="Header">
           <h1>Christina's Kanban</h1>
           <Input 
-            onClick={this.handleTaskSubmit}
-            handleChange={this.handleTaskInputChange}
+            onClick={() => this.handleTaskSubmit()}
+            onChange={(event) => this.handleTaskInputChange(event)}
+            value={this.state.newTask}
+            name="newTask"
           />
         </div>
         <div className="board-contianer">
@@ -94,5 +110,4 @@ class App extends Component {
     );
   }
 }
-
 export default DragDropContext(HTML5Backend)(App);
