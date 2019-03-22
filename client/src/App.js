@@ -28,7 +28,8 @@ class App extends Component {
      }
   }
 
-  handleTaskSubmit(){
+  handleTaskSubmit(e){
+    e.preventDefault()
     console.log("CLICK ", this.state)
     const taskName = this.state.newTask;
     console.log("taskName: ", taskName)
@@ -38,10 +39,9 @@ class App extends Component {
       name: taskName, 
       status: "todo"
     };
-    console.log(task)
     const newTasks = this.state.tasks;
     newTasks.push(task);
-    this.setState({tasks: newTasks})
+    this.setState({tasks: newTasks, newTask: ""})
   }
 
   handleTaskInputChange(e){
@@ -61,7 +61,7 @@ class App extends Component {
       $splice: [[index, 1], [originalIndex, 0, task]]
     })
 
-    this.setState({tasks: newTasks, newTask: ""})
+    this.setState({tasks: newTasks})
   }
 
   findCard = (id) => {
@@ -75,16 +75,16 @@ class App extends Component {
 
   render() {
 
-    const { tasks, channels } = this.state;
+    const { tasks, channels, newTask } = this.state;
 
     return (
       <div className="App">
         <div className="Header">
           <h1>Christina's Kanban</h1>
           <Input 
-            onClick={() => this.handleTaskSubmit()}
+            onClick={(e) => this.handleTaskSubmit(e)}
             onChange={(event) => this.handleTaskInputChange(event)}
-            value={this.state.newTask}
+            value={newTask}
             name="newTask"
           />
         </div>
