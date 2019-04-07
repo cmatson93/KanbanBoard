@@ -24,7 +24,8 @@ class App extends Component {
         "todo", 
         "doing", 
         "done"
-      ]
+      ],
+      newTask: ''
      }
   }
 
@@ -35,7 +36,8 @@ class App extends Component {
   }
 
   handleTaskInputChange(e){
-
+    console.log("handling: ",e.target.name)
+    this.setState({[e.target.name]: e.target.value})
   }
 
   update = (id, originalIndex, status) => {
@@ -67,15 +69,17 @@ class App extends Component {
     color: red
   `;
 
-    const { tasks, channels } = this.state;
+    const { tasks, channels, newTask } = this.state;
 
     return (
       <div className="App">
         <div className="Header">
           <StyledTitle>Christina's Kanban</StyledTitle>
           <Input 
-            onClick={this.handleTaskSubmit}
-            handleChange={this.handleTaskInputChange}
+            onClick={(e) => this.handleTaskSubmit(e)}
+            onChange={(event) => this.handleTaskInputChange(event)}
+            value={newTask}
+            name="newTask"
           />
         </div>
         <div className="board-contianer">
@@ -100,5 +104,4 @@ class App extends Component {
     );
   }
 }
-
 export default DragDropContext(HTML5Backend)(App);

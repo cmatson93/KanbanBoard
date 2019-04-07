@@ -1,6 +1,5 @@
 import React from 'react';
 import { DropTarget } from 'react-dnd';
-import Card from '../Card';
 import './styles.css';
 
 const boxTarget = {
