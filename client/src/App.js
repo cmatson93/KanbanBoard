@@ -6,6 +6,7 @@ import './App.css';
 import Input from './Input';
 import Column from './Column';
 import Card from './Card';
+import styled from 'styled-components';
 
 class App extends Component {
   constructor(props){
@@ -26,6 +27,8 @@ class App extends Component {
       ]
      }
   }
+
+  
 
   handleTaskSubmit(task){
 
@@ -60,13 +63,16 @@ class App extends Component {
   }
 
   render() {
+    const StyledTitle = styled.h1`
+    color: red
+  `;
 
     const { tasks, channels } = this.state;
 
     return (
       <div className="App">
         <div className="Header">
-          <h1>Christina's Kanban</h1>
+          <StyledTitle>Christina's Kanban</StyledTitle>
           <Input 
             onClick={this.handleTaskSubmit}
             handleChange={this.handleTaskInputChange}

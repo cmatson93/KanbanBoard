@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.css';
 import { DragSource, DropTarget } from 'react-dnd';
+import 'typeface-ubuntu';
 
 const boxSource = {
     beginDrag(props){
