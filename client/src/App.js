@@ -3,10 +3,11 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import update from "immutability-helper";
 import './App.css';
-import Input from './Input';
 import Column from './Column';
 import Card from './Card';
 import styled from 'styled-components';
+import Header from './Components/Header';
+import Input from './Components/Input';
 
 class App extends Component {
   constructor(props){
@@ -29,14 +30,13 @@ class App extends Component {
      }
   }
 
-  
-
   handleTaskSubmit(task){
-
+    console.log(`Task submit... ${task}`);
   }
 
   handleTaskInputChange(e){
-    console.log("handling: ",e.target.name)
+    e.preventDefault()
+    console.log("handling: ",e.target)
     this.setState({[e.target.name]: e.target.value})
   }
 
@@ -65,23 +65,16 @@ class App extends Component {
   }
 
   render() {
-    const StyledTitle = styled.h1`
-    color: red
-  `;
 
     const { tasks, channels, newTask } = this.state;
 
     return (
       <div className="App">
-        <div className="Header">
-          <StyledTitle>Christina's Kanban</StyledTitle>
-          <Input 
-            onClick={(e) => this.handleTaskSubmit(e)}
-            onChange={(event) => this.handleTaskInputChange(event)}
-            value={newTask}
-            name="newTask"
-          />
-        </div>
+        <Input 
+          name='newTask'
+          handleChange={(e) => this.handleTaskInputChange(e)}
+          value={this.newTask}
+        />
         <div className="board-contianer">
           {channels.map(channel => (
             <Column status={channel}>
